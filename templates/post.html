@@ -1,0 +1,14 @@
+<article class="review" itemprop="review" itemscope itemtype="http://schema.org/Review" id="rev{$post->getId()}">
+	<link itemprop="url" href="#rev{$post->getId()}">
+	<div itemprop="reviewBody">{$post->getText()}</div>
+	<footer>
+		<small>
+			<p class="userInfo">Отправлено пользователем 
+				<span itemprop="author" itemscope itemtype="http://schema.org/Person">
+					<span itemprop="name"><a href="{$post->getEmail()}" itemprop="email">{$post->getName()}</a></span>
+				</span>
+				<time itemprop="dateCreated" content="{$post->getDatetime()}"></time>
+			</p>
+		</small>
+	</footer>
+</article>
