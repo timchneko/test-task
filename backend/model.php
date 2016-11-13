@@ -17,10 +17,12 @@
 			$conn = $db->getConnection();
 			$query = "SELECT * FROM posts WHERE id = :id";
 			$stmnt = $conn->prepare($query);
-			$stmnt->bindValue(':id', $this->id);
+			$stmnt->bindValue(':id', $id);
 			$stmnt->execute();
 			$result = $stmnt->fetch();
-			return $result;
+			foreach ($result as $key => $value) {
+				$this->$key = $value;
+			}
    		}
 
    		public function save() {
@@ -73,6 +75,10 @@
    			$this->text = $text;
    		}
 
+   		public function setId($id) {
+   			$this->id = $id;
+   		}
+
    		public function getId() {
    			return $this->id;
    		}
@@ -87,6 +93,7 @@
 
    		public function getText() {
    			return $this->text;
+   		}
 
    		public function getDatetime() {
    			return $this->datetime;
