@@ -9,46 +9,48 @@
 		<link rel="stylesheet" href="styles.min.css">
 	</head>
 	<body>
-		<div class="container">
-			<div class="col-sm-offset-2 col-sm-8 well">
-				<section id="comments" class="center-block" itemscope itemtype="http://schema.org/Service">
-					<meta itemprop="serviceType" content="farma"/>
-					<h1 class=".text-center">Отзывы</h1>
+        <div class="container delim">
+            <div class="row">
+            	<a href="/tests/modelTest.php">Model</a>
+                <section id="comments" itemscope itemtype="http://schema.org/Organization">
+                    <meta itemprop="name" content="Монастырёв"/>
+					<h1 class="text-center">Отзывы</h1>
 					<div >
 						{$comments}
 					</div>
 				</section>
-				<form name="sentMessage" class="" id="contactForm"  novalidate>
-					<legend>Оставить отзыв</legend>
-					<div class="control-group">
-						<div class="controls">
-							<input type="text" class="form-control" 
-					   	   placeholder="Имя" id="name" required
-					           data-validation-required-message="Please enter your name" />
-					  		<p class="help-block"></p>
-						</div>
-					</div> 	
-					<div class="control-group">
-						<div class="controls">
-							<input type="email" class="form-control" placeholder="Email" 
-					   	            id="email" required data-validation-required-message="Please enter your email" />
-						</div>
-					</div> 
-					<div class="control-group">
-						<div class="controls">
-						<textarea rows="10" cols="100" class="form-control" 
-					           placeholder="Сообщение" id="message" required data-validation-required-message="Пожалуйста, введите текст сообщения" 
-					            maxlength="10000" style="resize:none"></textarea>
-						</div>
-					</div>
-					<div class="btn btn-default btn-file">
-					    Загрузить изображение<input type="file">
-					</div>
-					<div id="success"> </div>
-					<button type="submit" class="btn btn-primary pull-left">Предварительный просмотр</button>
-					<button type="submit" class="btn btn-primary pull-right">Отправить</button>
-				</form>
-			</div>
+                <div>
+                    <form name="sentMessage" class="clear" id="contactForm" role="form" novalidate>
+                        <legend>Оставить отзыв</legend>
+                        <div class="form-group">
+                            <input type="text" class="form-control"
+                               placeholder="Имя" id="name" required
+                                   data-validation-required-message="Please enter your name" />
+                            <p class="help-block"></p>
+                        </div>  
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email"
+                                        id="email" required data-validation-required-message="Please enter your email" />
+                        </div>
+                        <div class="form-group">
+                            <textarea rows="10" cols="100" class="form-control"
+                                   placeholder="Сообщение" id="message" required data-validation-required-message="Пожалуйста, введите текст сообщения"
+                                    maxlength="10000" style="resize:none"></textarea>
+                        </div>
+                        <label class="form-group">
+                            <div class="btn btn-info btn-file form-control">
+                                Загрузить изображение<input type="file" style="display: none;">
+                            </div>
+                        </label>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary form-control">Предварительный просмотр</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success form-control">Отправить</button>
+                        </div>
+                    </form>
+                </div>
+>			</div>
 		</div>
 	</body>
  </html>

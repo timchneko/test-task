@@ -1,14 +1,17 @@
-<article class="review" itemprop="review" itemscope itemtype="http://schema.org/Review" id="rev{$post->getId()}">
+<article class="review clearfix" itemprop="review" itemscope itemtype="http://schema.org/Review" id="rev{$post->getId()}">
 	<link itemprop="url" href="#rev{$post->getId()}">
-	<div itemprop="reviewBody">{$post->getText()}</div>
-	<footer>
-		<small>
-			<p class="userInfo">Отправлено пользователем 
-				<span itemprop="author" itemscope itemtype="http://schema.org/Person">
-					<span itemprop="name"><a href="{$post->getEmail()}" itemprop="email">{$post->getName()}</a></span>
-				</span>
-				<time itemprop="dateCreated" content="{$post->getDatetime()}"></time>
-			</p>
-		</small>
-	</footer>
+	<div class="img">
+		<img class="" src="{$post->getImagePath()}" itemprop="image" />
+	</div>
+	<div class="comment">
+		<h4 class="">
+			<span itemprop="author" itemscope itemtype="http://schema.org/Person">
+				<span itemprop="name"><a href="{$post->getEmail()}" itemprop="email">{$post->getName()}</a></span>
+			</span>
+			<small>
+				<time itemprop="dateCreated" content="{$post->getDatetime()}">2016-11-16</time>
+			</small>
+		</h4>
+		<p itemprop="reviewBody">{$post->getText()}</p>
+	</div>
 </article>
