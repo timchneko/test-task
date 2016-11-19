@@ -55,7 +55,7 @@
    		}
 
    		public function setName($name) {
-   			if (len($name) > 100) {
+   			if (strlen($name) > 100) {
    				throw new Exception('Имя не может превышать 100 символов!');
    			}
    			$this->name = $name;
@@ -65,11 +65,11 @@
    			if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
    				throw new Exception('Некорректный email!');
    			}
-   			$this->$email = $email;
+   			$this->email = $email;
    		}
 
    		public function setText($text) {
-   			if (len($name) > 10000) {
+   			if (strlen($name) > 10000) {
    				throw new Exception('Сообщение не может превышать 10000 символов!');
    			}
    			$this->text = $text;
