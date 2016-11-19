@@ -5,8 +5,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<meta charset="utf-8">
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<!--link rel="stylesheet" href="styles.min.css"-->
 		<link rel="stylesheet" href="styles.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="production.min.js"></script>
 	</head>
 	<body>
         <div class="container delim">
@@ -15,18 +16,49 @@
                 <section id="comments" itemscope itemtype="http://schema.org/Organization">
                     <meta itemprop="name" content="Монастырёв"/>
 					<h1 class="text-center">Отзывы</h1>
-					<div >
-						{$comments}
+					<div class="center-block text-center">
+		            	<ul class="pagination">
+		            		<li>
+		            			<a>
+			            			<span class="glyphicon glyphicon-menu-left"></span>
+			            		</a>
+		            		</li>
+		            	 	<?= $paginator ?>
+		            		<li>
+		            			<a>
+			            			<span class="glyphicon glyphicon-menu-right"></span>
+			            		</a>
+		            		</li>
+						</ul>
+					</div>
+					<div class="comments">
+						<div class="page1 activePage">
+							<?= $comments ?>
+						</div>
+					</div>
+					<div class="center-block text-center">
+		            	<ul class="pagination">
+		            		<li>
+		            			<a>
+			            			<span class="glyphicon glyphicon-menu-left"></span>
+			            		</a>
+		            		</li>
+		            	 	<?= $paginator ?>
+		            		<li>
+		            			<a>
+			            			<span class="glyphicon glyphicon-menu-right"></span>
+			            		</a>
+		            		</li>
+						</ul>
 					</div>
 				</section>
                 <div>
-                    <form name="sentMessage" class="clear" id="contactForm" role="form" novalidate>
+                    <form name="sentMessage" class="clearfix" id="contactForm" role="form" novalidate>
                         <legend>Оставить отзыв</legend>
                         <div class="form-group">
                             <input type="text" class="form-control"
                                placeholder="Имя" id="name" required
                                    data-validation-required-message="Please enter your name" />
-                            <p class="help-block"></p>
                         </div>  
                         <div class="form-group">
                             <input type="email" class="form-control" placeholder="Email"
@@ -37,20 +69,27 @@
                                    placeholder="Сообщение" id="message" required data-validation-required-message="Пожалуйста, введите текст сообщения"
                                     maxlength="10000" style="resize:none"></textarea>
                         </div>
-                        <label class="form-group">
-                            <div class="btn btn-info btn-file form-control">
-                                Загрузить изображение<input type="file" style="display: none;">
-                            </div>
-                        </label>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary form-control">Предварительный просмотр</button>
+                        <div class="form-group clearfix hidden-sm hidden-xs">
+                            <label class="btn btn-info btn-file pull-right">
+                                Загрузить изображение<input type="file" class="hidden">
+                            </label>
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-success form-control">Отправить</button>
+                        <div class="form-group hidden-sm hidden-xs">
+                            <button type="submit" class="btn btn-primary">Предварительный просмотр</button>
+                            <button type="submit" class="btn btn-success pull-right">Отправить</button>
+                        </div>
+                        <div class="form-group clearfix hidden-md hidden-lg">
+                            <label class="btn btn-info btn-file btn-block pull-right">
+                                Загрузить изображение<input type="file" class="hidden">
+                            </label>
+                        </div>
+                        <div class="form-group hidden-md hidden-lg">
+                            <button type="buttons" class="btn btn-primary btn-block">Предварительный просмотр</button>
+                            <button type="submit" class="btn btn-success btn-block pull-right">Отправить</button>
                         </div>
                     </form>
                 </div>
->			</div>
+        	</div>
 		</div>
 	</body>
  </html>

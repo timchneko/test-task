@@ -12,17 +12,16 @@
 			return $html;
 		}
 
-		function getPostHTML($post) {
-			$html = $this->loadTemplate("post.html", array("post" => $post));
-			return $html;
-		}
-
-		function show($posts, $postCount) {
-			$postOnPageCount = 10;
+		function getComments($posts) {
 			$comments = "";
 			foreach ($posts as $post) {
-				$comments .= $this->getPostHTML($post);
+				$comments .= $this->loadTemplate("post.html", array("post" => $post));
 			}
+			return $comments;
+		}
+
+		function show($posts, $postOnPageCount, $postCount) {
+			$comments = $this->getComments($posts);
 			$paginator = "<li class='active pageIndex index1'><a href='#'>1</a></li>";
 			for ($i = $postOnPageCount; $i < $postCount; $i += $postOnPageCount) {
 				$pageIndex = intdiv($i, $postOnPageCount) + 1;

@@ -7,5 +7,12 @@
 	if (empty($_REQUEST)) {
 		$controller = new Controller();
 		$controller->getIndexPage();
+		return;
+	}
+	if (isset($_REQUEST['page'])) {
+		$page = $_REQUEST['page'];
+		$controller = new Controller();
+		$controller->getComments($page);
+		return;
 	}
 ?>
