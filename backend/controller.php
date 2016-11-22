@@ -41,5 +41,19 @@
 			$view = new View();
 			echo $view->getComments($posts);
 		}
+
+		function getPreview($username, $email, $message) {
+			$model = new Model();
+			try {
+				$model->setName($username);
+				$model->setEmail($email);
+				$model->setText($message);
+			} catch (Exception $ex) {
+				echo $ex->getMessage();
+				return;
+			}
+			$view = new View();
+			echo $view->getComments(array(1 => $model));
+		}
 	}
 ?>

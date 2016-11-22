@@ -5,11 +5,27 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<meta charset="utf-8">
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" href="styles.min.css">
+		<link rel="stylesheet" href="css/styles.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script src="production.min.js"></script>
+		<script src="js/production.min.js"></script>
 	</head>
 	<body>
+		<div id="preview" class="modal fade" role="dialog">
+  			<div class="modal-dialog">
+  				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Предварительный просмотр</h4>
+					</div>
+					<div class="modal-body">
+						<div class="modal-message"></div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
         <div class="container delim">
             <div class="row">
             	<a href="/tests/modelTest.php">Model</a>
@@ -53,21 +69,21 @@
 					</div>
 				</section>
                 <div>
-                    <form name="sentMessage" class="clearfix" id="contactForm" role="form" novalidate>
+                    <form name="sentMessage" class="clearfix" id="commentForm" role="form">
                         <legend>Оставить отзыв</legend>
                         <div class="form-group">
                             <input type="text" class="form-control"
-                               placeholder="Имя" id="name" required
-                                   data-validation-required-message="Please enter your name" />
+                               placeholder="Имя" name="username" data-rule-required="true"
+                                   data-msg-required="Пожалуйста, введите имя" />
                         </div>  
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Email"
-                                        id="email" required data-validation-required-message="Please enter your email" />
+                            <input type="email" class="form-control" placeholder="Email" data-rule-emailWithDot="true"
+									name="email" data-msg-emailWithDot="Пожалуйста, введите email" data-msg-email="Пожалуйста, введите email" />
                         </div>
                         <div class="form-group">
                             <textarea rows="10" cols="100" class="form-control"
-                                   placeholder="Сообщение" id="message" required data-validation-required-message="Пожалуйста, введите текст сообщения"
-                                    maxlength="10000" style="resize:none"></textarea>
+                                   placeholder="Сообщение" name="message" data-rule-required="true" data-msg-required="Пожалуйста, введите текст сообщения" data-msg-maxlength="Сообщение не должно превышать 10000 символов"
+                                    data-rule-maxlength="10000"></textarea>
                         </div>
                         <div class="form-group clearfix hidden-sm hidden-xs">
                             <label class="btn btn-info btn-file pull-right">
@@ -75,7 +91,7 @@
                             </label>
                         </div>
                         <div class="form-group hidden-sm hidden-xs">
-                            <button type="submit" class="btn btn-primary">Предварительный просмотр</button>
+                            <button type="button" class="btn btn-primary preview">Предварительный просмотр</button>
                             <button type="submit" class="btn btn-success pull-right">Отправить</button>
                         </div>
                         <div class="form-group clearfix hidden-md hidden-lg">
@@ -84,7 +100,7 @@
                             </label>
                         </div>
                         <div class="form-group hidden-md hidden-lg">
-                            <button type="buttons" class="btn btn-primary btn-block">Предварительный просмотр</button>
+                            <button type="button" class="btn btn-primary btn-block preview">Предварительный просмотр</button>
                             <button type="submit" class="btn btn-success btn-block pull-right">Отправить</button>
                         </div>
                     </form>

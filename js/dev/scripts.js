@@ -35,4 +35,17 @@ $('document').ready(function() {
 		if ($(this).hasClass('active')) return;
 		loadPage($(this).text());
 	});
+	$('.preview').click(function() {
+		var valid = $('#commentForm').valid();
+		if (valid) {
+			var request = {preview: 1};
+			$('.form-control').each(function() { request[this.name] = this.value });
+			$.post('index.php', request, function(data, status) {
+				if (!data || status != "success") return;
+				$('.modal-message').empty();
+				$('.modal-message').prepend(data);
+				$('.modal').modal();
+			});
+		}
+	})
 });

@@ -10,9 +10,9 @@
 		private $isChanged = 0;
 
  		public function load($id = "") {
-   			if (!is_numeric($id)) {
-   				throw new Exception('Некорректный id!');
-   			}
+			if (!is_numeric($id)) {
+				throw new Exception('Некорректный id!');
+			}
 			$db = Connection::getInstance();
 			$conn = $db->getConnection();
 			$query = "SELECT * FROM posts WHERE id = :id";
@@ -23,9 +23,9 @@
 			foreach ($result as $key => $value) {
 				$this->$key = $value;
 			}
-   		}
+   	}
 
-   		public function save() {
+   	public function save() {
 			$db = Connection::getInstance();
 			$conn = $db->getConnection();
 			if (!$this->id) {
@@ -52,64 +52,64 @@
 				$this->id = $conn->lastInsertId();
 			}
 			$conn->commit();
-   		}
+   	}
 
-   		public function setName($name) {
-   			if (strlen($name) > 100) {
-   				throw new Exception('Имя не может превышать 100 символов!');
-   			}
-   			$this->name = $name;
-   		}
+		public function setName($name) {
+			if (strlen($name) > 100) {
+				throw new Exception('Имя не может превышать 100 символов!');
+			}
+			$this->name = $name;
+		}
 
-   		public function setEmail($email) {
-   			if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-   				throw new Exception('Некорректный email!');
-   			}
-   			$this->email = $email;
-   		}
+		public function setEmail($email) {
+			if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+				throw new Exception('Некорректный email!');
+			}
+			$this->email = $email;
+		}
 
-   		public function setText($text) {
-   			if (strlen($name) > 10000) {
-   				throw new Exception('Сообщение не может превышать 10000 символов!');
-   			}
-   			$this->text = $text;
-   		}
+		public function setText($text) {
+			if (strlen($name) > 10000) {
+				throw new Exception('Сообщение не может превышать 10000 символов!');
+			}
+			$this->text = $text;
+		}
 
-   		public function setId($id) {
-   			$this->id = $id;
-   		}
+		public function setId($id) {
+			$this->id = $id;
+		}
 
-   		public function getId() {
-   			return $this->id;
-   		}
+		public function getId() {
+			return $this->id;
+		}
 
-   		public function getName() {
-   			return $this->name;
-   		}
+		public function getName() {
+			return htmlspecialchars($this->name);
+		}
 
-   		public function getEmail() {
-   			return $this->email;
-   		}
+		public function getEmail() {
+			return htmlspecialchars($this->email);
+		}
 
-   		public function getText() {
-   			return $this->text;
-   		}
+		public function getText() {
+			return htmlspecialchars($this->text);
+		}
 
-   		public function getDatetime() {
-   			return $this->datetime;
-   		}
+		public function getDatetime() {
+			return $this->datetime;
+		}
 
-   		public function getImagePath() {
-   			return $this->imagePath;
-   		}
+		public function getImagePath() {
+			return $this->imagePath;
+		}
 
-   		public function getIsApproved() {
-   			return $this->isApproved;
-   		}
+		public function getIsApproved() {
+			return $this->isApproved;
+		}
 
-   		public function getIsChanged() {
-   			return $this->isChanged;
-   		}
+		public function getIsChanged() {
+			return $this->isChanged;
+		}
 
 	}
 ?>
