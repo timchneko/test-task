@@ -79,6 +79,10 @@
 			$this->id = $id;
 		}
 
+		public function setImagePath($imagePath) {
+			$this->imagePath = $imagePath;
+		}
+
 		public function getId() {
 			return $this->id;
 		}

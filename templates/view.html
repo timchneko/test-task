@@ -18,7 +18,20 @@
 						<h4 class="modal-title">Предварительный просмотр</h4>
 					</div>
 					<div class="modal-body">
-						<div class="modal-message"></div>
+						<article id="revPreview" class="review clearfix">
+							<div class="img">
+								<img id="imagePreview"/>
+							</div>
+							<div class="comment">
+								<h4 class="">
+									<a id="emailPreview"><span id="usernamePreview"></span></a>
+									<small>
+										<time id="timePreview"></time>
+									</small>
+								</h4>
+								<p id="messagePreview"></p>
+							</div>
+						</article>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
 						</div>
@@ -87,7 +100,7 @@
                         </div>
                         <div class="form-group clearfix hidden-sm hidden-xs">
                             <label class="btn btn-info btn-file pull-right">
-                                Загрузить изображение<input type="file" class="hidden">
+                                Загрузить изображение<input type="file" class="file-input hidden">
                             </label>
                         </div>
                         <div class="form-group hidden-sm hidden-xs">
@@ -96,7 +109,7 @@
                         </div>
                         <div class="form-group clearfix hidden-md hidden-lg">
                             <label class="btn btn-info btn-file btn-block pull-right">
-                                Загрузить изображение<input type="file" class="hidden">
+                                Загрузить изображение<input type="file" class="file-input hidden">
                             </label>
                         </div>
                         <div class="form-group hidden-md hidden-lg">
