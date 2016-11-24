@@ -56,8 +56,8 @@
 					$imagePath = 'pics/' . time() . rand() . $filetype;
 					file_put_contents($imagePath, $data);
 					$model->setImagePath($imagePath);
-					$model->save();
 				}
+				$model->save();
 			} catch (Exception $ex) {
 				echo $ex->getMessage();
 				return;

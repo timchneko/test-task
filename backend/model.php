@@ -47,7 +47,7 @@
 				$stmnt->bindValue(':id', $this->id);
 			}
 			$conn->beginTransaction();
-			$stmt1 = $stmnt->execute();
+			$stmnt->execute();
 			if (!$this->id) {
 				$this->id = $conn->lastInsertId();
 			}
@@ -69,7 +69,7 @@
 		}
 
 		public function setText($text) {
-			if (strlen($name) > 10000) {
+			if (strlen($text) > 10000) {
 				throw new Exception('Сообщение не может превышать 10000 символов!');
 			}
 			$this->text = $text;
