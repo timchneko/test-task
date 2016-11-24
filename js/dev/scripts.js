@@ -116,7 +116,9 @@ $('document').ready(function() {
 			$.post('index.php', request, function(data, status) {
 				if (!data || status != "success") return;
 				var comments = $('.comments').empty();
-				comments.prepend(data);
+				$('<div class="page1 activePage">').prepend(data).prependTo(comments);
+				$('.alert-success').addClass('in');
+				setTimeout(function() { $('.alert-success').removeClass('in') }, 2000);
 			});
 		}
 	});
