@@ -28,6 +28,7 @@ var Image = function() {
 	this.type = null;
 	this.load = function(file) {
 		if (file instanceof File) {
+			this.state = 0;
 			this.canvas = this.canvas || document.createElement("canvas");
 			this.img = this.img || document.createElement("img");
 			this.reader = this.reader || new FileReader();
@@ -87,7 +88,8 @@ $('document').ready(function() {
 		image.load(this.files[0]);
 	});
 	// show comment preview
-	$('.preview').click(function() {
+	$('.preview').click(function(event) {
+		event.preventDefault();
 		var valid = $('#commentForm').valid();
 		if (valid) {
 			$('.form-control').each(function() { 
@@ -100,5 +102,22 @@ $('document').ready(function() {
 			}
 			$('.modal').modal();
 		}
-	})
+	});
+	$("button[type='submit']").click(function(event) {
+		event.preventDefault();
+		var valid = $('#commentForm').valid();
+		if (valid) {
+			var request = {submit: 1};
+			if (image.state == 2) {
+				window.img = image.resize();
+				request.image = image.toDataURL();
+			}
+			$('.form-control').each(function() { request[this.name] = this.value });
+			$.post('index.php', request, function(data, status) {
+				if (!data || status != "success") return;
+				var comments = $('.comments').empty();
+				comments.prepend(data);
+			});
+		}
+	});
 });

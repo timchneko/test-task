@@ -42,18 +42,27 @@
 			echo $view->getComments($posts);
 		}
 
-		function getPreview($username, $email, $message) {
+		function post($username, $email, $message, $imageData) {
 			$model = new Model();
 			try {
 				$model->setName($username);
 				$model->setEmail($email);
 				$model->setText($message);
+				if ($imageData != '') {
+					list($type, $data) 	= explode(';', $imageData);
+					list(, $data)		= explode(',', $data);
+					list(, $filetype) 	= explode('/', $type);
+					$data = base64_decode($data);
+					$imagePath = 'pics/' . time() . rand() . $filetype;
+					file_put_contents($imagePath, $data);
+					$model->setImagePath($imagePath);
+					$model->save();
+				}
 			} catch (Exception $ex) {
 				echo $ex->getMessage();
 				return;
 			}
-			$view = new View();
-			echo $view->getComments(array(1 => $model));
+			$this->getComments(1);
 		}
 	}
 ?>

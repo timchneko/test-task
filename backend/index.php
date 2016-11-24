@@ -15,13 +15,13 @@
 		$controller->getComments($page);
 		return;
 	}
-	if (isset($_POST['preview'])) {
-		if (!isset($_POST['username']) || !isset($_POST['email']) || !isset($_POST['message'])) {
-			echo "Введены не все данные!";
-			return;
-		}
+	if (isset($_POST['submit'])) {
+		$username = isset($_POST['username']) ? $_POST['username'] : "";
+		$email = isset($_POST['email']) ? $_POST['email'] : "";
+		$message = isset($_POST['message']) ? $_POST['message'] : "";
+		$image = isset($_POST['image']) ? $_POST['image'] : "";
 		$controller = new Controller();
-		$controller->getPreview($_POST['username'], $_POST['email'], $_POST['message']);
+		$controller->post($username, $email, $message, $image);
 		return;
 	}
 ?>
