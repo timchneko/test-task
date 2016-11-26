@@ -9,12 +9,6 @@
 		$controller->getIndexPage();
 		return;
 	}
-	if (isset($_REQUEST['page'])) {
-		$page = $_REQUEST['page'];
-		$controller = new Controller();
-		$controller->getComments($page);
-		return;
-	}
 	if (isset($_POST['submit'])) {
 		$username = isset($_POST['username']) ? $_POST['username'] : "";
 		$email = isset($_POST['email']) ? $_POST['email'] : "";

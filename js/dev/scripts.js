@@ -4,19 +4,6 @@ var switchPage = function(index) {
 	$('.page' + index).addClass('activePage').show();
 }
 
-var loadPage = function(index) {
-	if (!$('.page' + index).length) {
-		$.post('index.php', {page: index}, function(data, status) {
-			if (!data || status != "success") return;
-			var div = document.createElement('div');
-			$(div).addClass('page' + index).html(data).appendTo('.comments');
-			switchPage(index);
-		});
-	} else {
-		switchPage(index);
-	}
-}
-
 // Class for client-side image resizing
 var Image = function() {
 	this.state = 0;
@@ -69,18 +56,18 @@ $('document').ready(function() {
 		// left arrow
 		$(this).children().first().click(function() {
 			var index = $('.pagination li.active').first().text();
-			loadPage(index - 1);
+			switchPage(index - 1);
 		});
 		// right arrow
 		$(this).children().last().click(function() {
 			var index = $('.pagination li.active').first().text();
-			loadPage(+index + 1);
+			switchPage(+index + 1);
 		});
 	});
 	// page index
 	$('.pagination li.pageIndex').click(function() {
 		if ($(this).hasClass('active')) return;
-		loadPage($(this).text());
+		switchPage($(this).text());
 	});
 	var image = new Image();
 	// load image into object
@@ -103,6 +90,7 @@ $('document').ready(function() {
 			$('.modal').modal();
 		}
 	});
+	// form submit
 	$("button[type='submit']").click(function(event) {
 		event.preventDefault();
 		var valid = $('#commentForm').valid();

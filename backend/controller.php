@@ -3,10 +3,10 @@
 
 		private $postOnPageCount = 10;
 
-		function getEntries($limit, $offset) {
+		function getEntries() {
 			$db = Connection::getInstance();
 			$conn = $db->getConnection();
-			$query = "SELECT id FROM posts ORDER BY datetime DESC LIMIT {$limit} OFFSET {$offset}";
+			$query = "SELECT id FROM posts ORDER BY datetime DESC, ID DESC";
 			$stmnt = $conn->prepare($query);
 			$stmnt->execute();
 			$result = $stmnt->fetchAll();
@@ -30,14 +30,14 @@
 		}
 
 		function getIndexPage() {
-			$posts = $this->getEntries($this->postOnPageCount, 0);
+			$posts = $this->getEntries();
 			$postCount = $this->getPostCount();
 			$view = new View();
 			echo $view->show($posts, $this->postOnPageCount, $postCount);
 		}
 
-		function getComments($page) {
-			$posts = $this->getEntries(10, ($page - 1) * $this->postOnPageCount);
+		function getComments() {
+			$posts = $this->getEntries();
 			$view = new View();
 			echo $view->getComments($posts);
 		}
@@ -62,7 +62,7 @@
 				echo $ex->getMessage();
 				return;
 			}
-			$this->getComments(1);
+			$this->getComments();
 		}
 	}
 ?>
