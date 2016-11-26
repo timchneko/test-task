@@ -16,11 +16,11 @@
 			$comments = "<div class='page1 activePage'>";
 			$i = 0;
 			foreach ($posts as $post) {
+				$comments .= $this->loadTemplate("post.html", array("post" => $post));
 				if ((++$i % $postOnPageCount) == 0) {
 					$k = ($i / $postOnPageCount) + 1;
-					$comments .= "</div><div class='page{$k}'>";
+					$comments .= "</div><div class='page{$k}' style='display: none'>";
 				}
-				$comments .= $this->loadTemplate("post.html", array("post" => $post));
 			}
 			$comments .= "</div>";
 			return $comments;
