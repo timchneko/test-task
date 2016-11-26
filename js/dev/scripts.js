@@ -1,7 +1,6 @@
 var switchPage = function(index) {
-	$('.activePage').hide().removeClass('activePage');
 	$('.index' + index).addClass('active').siblings().removeClass('active');
-	$('.page' + index).addClass('activePage').show();
+	$('.page' + index).show().siblings().hide();
 }
 
 // Class for client-side image resizing
@@ -103,8 +102,7 @@ $('document').ready(function() {
 			$('.form-control').each(function() { request[this.name] = this.value });
 			$.post('index.php', request, function(data, status) {
 				if (!data || status != "success") return;
-				var comments = $('.comments').empty();
-				$('<div class="page1 activePage">').prepend(data).prependTo(comments);
+				$('.comments').empty().prepend(data);
 				$('.alert-success').addClass('in');
 				setTimeout(function() { $('.alert-success').removeClass('in') }, 2000);
 			});

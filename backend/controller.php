@@ -39,7 +39,7 @@
 		function getComments() {
 			$posts = $this->getEntries();
 			$view = new View();
-			echo $view->getComments($posts);
+			echo $view->getComments($posts, $this->postOnPageCount);
 		}
 
 		function post($username, $email, $message, $imageData) {

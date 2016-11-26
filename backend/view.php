@@ -13,7 +13,7 @@
 		}
 
 		function getComments($posts, $postOnPageCount) {
-			$comments = "<div class='page1 activePage'>";
+			$comments = "<div class='page1'>";
 			$i = 0;
 			foreach ($posts as $post) {
 				$comments .= $this->loadTemplate("post.html", array("post" => $post));
