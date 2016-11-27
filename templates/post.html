@@ -8,10 +8,10 @@
 	<div class="comment">
 		<h4 class="">
 			<span itemprop="author" itemscope itemtype="http://schema.org/Person">
-				<span itemprop="name"><a href="mailto:<?= $post->getEmail() ?>" itemprop="email"><?= $post->getName() ?></a></span>
+				<span itemprop="name" class="username"><a class="email" href="mailto:<?= $post->getEmail() ?>" itemprop="email"><?= $post->getName() ?></a></span>
 			</span>
 			<small>
-				<time itemprop="dateCreated" content="<?= $post->getDatetime() ?>"><?= $post->getDatetime() ?></time>
+				<time class="datetime" itemprop="dateCreated" content="<?= $post->getDatetime() ?>"><?= $post->getDatetime() ?></time>
 			</small>
 		</h4>
 		<p itemprop="reviewBody"><?= $post->getText() ?></p>

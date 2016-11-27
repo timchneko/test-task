@@ -50,6 +50,13 @@ var Image = function() {
 	};
 }
 
+// sorting functions
+var sortBy = {
+	username: function(a, b) { return $(a).find('.username').text() > $(b).find('.username').text() },
+	email: function(a, b) { return $(a).find('.email').attr('href') > $(b).find('.email').attr('href') },
+	date: function(a, b) { return $(a).find('.datetime').text() < $(b).find('.datetime').text() }
+}
+
 $('document').ready(function() {
 	$('.pagination').each(function() {
 		// left arrow
@@ -107,5 +114,18 @@ $('document').ready(function() {
 				setTimeout(function() { $('.alert-success').removeClass('in') }, 2000);
 			});
 		}
+	});
+	// post sorting
+	$('.dropdown-menu li a').click(function() {
+		$(this.parentElement).addClass('active').siblings().removeClass('active');;
+		$('.dropdown-value').text($(this).text());
+		var reviews = $('.review').not('#revPreview').sort(sortBy[$(this).data("value")]);
+		var comments = $('.comments').empty();
+		for (var i = 0; i < reviews.length; i += 10) {
+			var div = $('<div class="page' + (i / 10 + 1) + '">');
+			div.append(reviews.slice(i, i + 10)).appendTo(comments);
+		}
+		var index = $('.pagination .active').first().text();
+		$('.page' + index).siblings().hide();
 	});
 });
