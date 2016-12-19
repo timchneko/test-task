@@ -6,7 +6,7 @@
 
 	if (empty($_REQUEST)) {
 		$controller = new Controller();
-		$controller->getIndexPage();
+		$controller->getIndexPage($_COOKIE);
 		return;
 	}
 	if (isset($_POST['submit'])) {
@@ -18,4 +18,29 @@
 		$controller->post($username, $email, $message, $image);
 		return;
 	}
+	if (isset($_GET['admin'])) {
+		$controller = new Controller();
+		$controller->getLoginPage();
+		return;
+	}
+	if (isset($_POST['username']) && isset($_POST['pass'])) {
+		$controller = new Controller();
+		$controller->login($_POST['username'], $_POST['pass']);
+		return;
+	}
+	if (isset($_POST['edit'])) {
+		$id = isset($_POST['id']) ? preg_replace('/\D/', '', $_POST['id']) : "";
+		$text = isset($_POST['text']) ? $_POST['text'] : "";
+		$controller = new Controller();
+		$controller->edit($id, $text, $_COOKIE);
+		return;
+	}
+	if (isset($_POST['confirm'])) {
+		$id = isset($_POST['id']) ? preg_replace('/\D/', '', $_POST['id']) : "";
+		$controller = new Controller();
+		$controller->confirm($id, $_POST['confirm'], $_COOKIE);
+		return;
+	}
+	echo "fail";
+	return;
 ?>

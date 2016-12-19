@@ -5,11 +5,27 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<meta charset="utf-8">
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" href="css/styles.min.css">
+    	<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/styles.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    	<script src="js/jquery.validate.min.js"></script>
+    	<script src="js/modal.min.js"></script>
+    	<script src="js/dropdown.min.js"></script>
 		<script src="js/production.min.js"></script>
+		<?= $this->isAdmin ? '<script src="js/confirm.min.js"></script>' : '' ?>
 	</head>
 	<body>
+		<form class="editForm hidden" role="form">
+			<div class="form-group">
+				<textarea rows="5" cols="100" class="form-control" data-msg-maxlength="Сообщение не должно превышать 10000 символов"
+							data-msg-required="Пожалуйста, введите текст сообщения" data-rule-required="true" data-rule-maxlength="10000">
+				</textarea>
+	        </div>
+			<div class="form-group">
+	            <button type="submit" class="save btn btn-success">Сохранить</button>
+	            <button type="button" class="cancel btn btn-primary">Отмена</button>
+	        </div>
+		</form>
 		<div id="preview" class="modal fade" role="dialog">
   			<div class="modal-dialog">
   				<div class="modal-content">
@@ -19,7 +35,7 @@
 					</div>
 					<div class="modal-body">
 						<article id="revPreview" class="review clearfix">
-							<div class="image-float">
+							<div class="image-float" id="imagePreviewDiv">
 								<img class="image-center" id="imagePreview"/>
 							</div>
 							<div class="comment">
@@ -39,8 +55,9 @@
 				</div>
 			</div>
 		</div>
-        <div class="container delim">
+        <div class="container">
             <div class="row">
+				<a href="?admin=1">Войти</a>
                 <section id="comments" itemscope itemtype="http://schema.org/Organization">
                     <meta itemprop="name" content="Монастырёв"/>
 					<h1 class="text-center">Отзывы</h1>
@@ -98,6 +115,7 @@
 						</ul>
 					</div>
 				</section>
+				<?php if (!$this->isAdmin) { ?>
                 <div>
                     <form name="sentMessage" class="clearfix" id="commentForm" role="form">
                         <legend>Оставить отзыв</legend>
@@ -107,8 +125,9 @@
                                    data-msg-required="Пожалуйста, введите имя" />
                         </div>  
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Email" data-rule-emailWithDot="true"
-									name="email" data-msg-emailWithDot="Пожалуйста, введите email" data-msg-email="Пожалуйста, введите email" />
+                            <input type="email" class="form-control" placeholder="Email" data-rule-email="true" data-rule-emailWithDot="true"
+									name="email" data-msg-email="Некорректный email" data-rule-required="true"
+									data-msg-required="Пожалуйста, введите email" data-msg-emailWithDot="Некорректный email" />
                         </div>
                         <div class="form-group">
                             <textarea rows="5" cols="100" class="form-control"
@@ -117,7 +136,7 @@
                         </div>
                         <div class="form-group clearfix hidden-sm hidden-xs">
                             <label class="btn btn-info btn-file pull-right">
-                                Загрузить изображение<input type="file" class="file-input hidden">
+                                Загрузить изображение<input type="file" class="file-input hidden" accept="image/png,image/gif,image/jpeg">
                             </label>
                         </div>
                         <div class="form-group hidden-sm hidden-xs">
@@ -138,6 +157,7 @@
 						</div>
                     </form>
                 </div>
+				<?php } ?>
         	</div>
 		</div>
 	</body>

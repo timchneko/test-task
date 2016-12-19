@@ -1,7 +1,13 @@
 <?php
 	class View {
 
-		private function loadTemplate($filepath, $arrayOfData) {
+		private $isAdmin = 0;
+
+		function __construct($isAdmin = 0) {
+			$this->isAdmin = $isAdmin;
+		}
+
+		private function loadTemplate($filepath, $arrayOfData = array()) {
 			$dir = "../templates/";
 			$file = $dir . $filepath;
 			extract($arrayOfData);
@@ -35,6 +41,10 @@
 			}
 			$html = $this->loadTemplate("view.html", array("paginator" => $paginator, "comments" => $comments));
 			return $html;
+		}
+
+		function getLoginPage() {
+			return $this->loadTemplate("admin.html");
 		}
 	}
 ?>

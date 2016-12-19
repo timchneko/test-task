@@ -3,10 +3,14 @@
 
 		private $postOnPageCount = 10;
 
-		function getEntries() {
+		function getEntries($isAdmin) {
 			$db = Connection::getInstance();
 			$conn = $db->getConnection();
-			$query = "SELECT id FROM posts ORDER BY datetime DESC, ID DESC";
+			$where = "";
+			if (!$isAdmin) {
+				$where = " WHERE isApproved = 1";
+			}
+			$query = "SELECT id FROM posts {$where} ORDER BY datetime DESC, ID DESC";
 			$stmnt = $conn->prepare($query);
 			$stmnt->execute();
 			$result = $stmnt->fetchAll();
@@ -19,27 +23,26 @@
 			return $posts;
 		}
 
-		function getPostCount() {
+		function getPostCount($isAdmin) {
 			$db = Connection::getInstance();
 			$conn = $db->getConnection();
-			$query = "SELECT count(1) postcount FROM posts";
+			$where = "";
+			if (!$isAdmin) {
+				$where = " WHERE isApproved = 1";
+			}
+			$query = "SELECT count(1) postcount FROM posts {$where}";
 			$stmnt = $conn->prepare($query);
 			$stmnt->execute();
 			$result = $stmnt->fetch();
 			return $result['postcount'];
 		}
 
-		function getIndexPage() {
-			$posts = $this->getEntries();
-			$postCount = $this->getPostCount();
-			$view = new View();
+		function getIndexPage($cookie) {
+			$isAdmin = $this->checkPrivilege($cookie);
+			$posts = $this->getEntries($isAdmin);
+			$postCount = $this->getPostCount($isAdmin);
+			$view = new View($isAdmin);
 			echo $view->show($posts, $this->postOnPageCount, $postCount);
-		}
-
-		function getComments() {
-			$posts = $this->getEntries();
-			$view = new View();
-			echo $view->getComments($posts, $this->postOnPageCount);
 		}
 
 		function post($username, $email, $message, $imageData) {
@@ -62,7 +65,75 @@
 				echo $ex->getMessage();
 				return;
 			}
-			$this->getComments();
+			$posts = $this->getEntries();
+			$view = new View();
+			echo $view->getComments($posts, $this->postOnPageCount);
+		}
+
+		function getLoginPage() {
+			echo (new View())->getLoginPage();
+			return;
+		}
+
+		function login($name, $pass) {
+			$user = new User();
+			try {
+				$user->load($name);
+				if (!$user->login($pass)) {
+					echo 0;
+					return;
+				}
+				$user->setHash();
+				$user->save();
+				echo $user->getHash();
+				return;
+			} catch (Exception $ex) {
+				echo $ex->getMessage();
+				return;
+			}
+		}
+
+		function checkPrivilege($cookie) {
+			try {
+				if (!empty($cookie) && isset($cookie['username']) && isset($cookie['hash'])) {
+					$user = new User();
+					$user->load($cookie['username']);
+					return ($cookie['hash'] == $user->getHash());
+				}
+			} catch (Exception $ex) {}
+			return 0;
+		}
+
+		function edit($id, $text, $cookie) {
+			if (!$this->checkPrivilege($cookie)) {
+				return;
+			}
+			try {
+				$model = new Model();
+				$model->load($id);
+				$model->setText($text);
+				$model->setIsChanged(1);
+				$model->save();
+				echo $model->getText();
+
+			} catch (Exception $ex) {}
+			return;
+		}
+
+		function confirm($id, $approved, $cookie) {
+			if (!$this->checkPrivilege($cookie)) {
+				return;
+			}
+			try {
+				$model = new Model();
+				$model->load($id);
+				$model->setIsApproved($approved);
+				$model->save();
+				echo 1;
+				return;
+			} catch (Exception $ex) {}
+			echo 0;
+			return;
 		}
 	}
 ?>

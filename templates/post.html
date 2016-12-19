@@ -1,4 +1,8 @@
+<?php if ($this->isAdmin) { ?>
+<article class="review clearfix alert alert-<?= $post->getIsApproved() ? 'success' : 'danger' ?>" itemprop="review" itemscope itemtype="http://schema.org/Review" id="rev<?= $post->getId() ?>">
+<?php } else { ?>
 <article class="review clearfix" itemprop="review" itemscope itemtype="http://schema.org/Review" id="rev<?= $post->getId() ?>">
+<?php } ?>
 	<link itemprop="url" href="#rev<?= $post->getId() ?>">
 	<?php if ($post->getImagePath() != '') { ?>
 	<div class="image-float">
@@ -12,8 +16,15 @@
 			</span>
 			<small>
 				<time class="datetime" itemprop="dateCreated" content="<?= $post->getDatetime() ?>"><?= $post->getDatetime() ?></time>
+				<?= $this->isAdmin ? '<a class="edit" href="#">Редактировать</a>' : '' ?>
+				<?= $post->getIsChanged() ? 'изменён администратором' : '' ?>
 			</small>
 		</h4>
 		<p itemprop="reviewBody"><?= $post->getText() ?></p>
+		<?php if ($this->isAdmin) { ?>
+		<button type="button" class="confirm btn btn-<?= $post->getIsApproved() ? 'danger' : 'success'?>">
+			<?= $post->getIsApproved() ? 'Отказать' : 'Подтвердить' ?>
+		</button>
+		<?php } ?>
 	</div>
 </article>
