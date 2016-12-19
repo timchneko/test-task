@@ -3,45 +3,26 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-        concat: {
-            js: {
-                src: [
-                    'js/dev/*.js'
-                ],
-                dest: 'js/production.js'
-            },
-            css: {
-                src: [ 
-                    'css/bootstrap.css',
-                    'css/styles.css'
-                ],
-                dest: 'prod/css/styles.min.css'
-            }
-        },
-
         less: {
             development: {
                 options: {
                   paths: ['less']
                 },
                 files: {
-                  'css/styles.css': 'less/styles.less'
+                  'css/styles.css': 'less/styles.less',
+                  'css/admin.css': 'less/admin.less'
                 }
             }
         },
 
         uglify: {
             build: {
-                src: 'js/production.js',
-                dest: 'prod/js/production.min.js'
+                expand: true,
+                cwd: 'js/',
+                src: '*/**.js',
+                dest: 'prod/js/',
+                rename: function(dest, src) { return dest + src.substring(src.lastIndexOf('/')+1, src.lastIndexOf('.')) + '.min.js' }
             }
-        },
-
-        clean: {
-            prod: ['prod/*'],
-            js: ['prod/js/*'],
-            css: ['prod/css/*'],
-            html: ['prod/templates/*']
         },
 
         copy: {
@@ -63,45 +44,55 @@ module.exports = function(grunt) {
                 src: '*',
                 dest: 'prod/fonts/'
             },
+            css: {
+                expand: true,
+                cwd: 'css/',
+                src: '*',
+                dest: 'prod/css/'
+            },
             misc: {
                 expand: true,
                 cwd: 'backend/',
-                src: ['index.php', 'db.sq3'],
+                src: ['index.php'],
                 dest: 'prod/'
             }
         },
 
         watch: {
             scripts: {
-                files: ['js/dev/*.js'],
-                tasks: ['concat:js', 'uglify']
+                files: ['js/dev/*.js', 'js/lib/*.js'],
+                tasks: ['uglify']
             },
             
             less: {
                 files: ['less/*.less'],
-                tasks: ['less', 'concat:css']
+                tasks: ['less', 'copy:css']
             },
             
             html: {
-                files: ['template/*'],
+                files: ['templates/*'],
                 tasks: ['copy:html']
             },
             
             backend: {
                 files: ['backend/*.php'],
                 tasks: ['copy:backend']
+            },
+            
+            misc: {
+                files: ['backend/index.php'],
+                tasks: ['copy:misc']
             }
         }
 
     });
 
-    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
 
-    grunt.registerTask('default', ['copy', 'less', 'concat', 'uglify']);
+    grunt.registerTask('default', ['less', 'copy']);
+    grunt.registerTask('release', ['default', 'uglify']);
 
 };

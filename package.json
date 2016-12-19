@@ -1,0 +1,28 @@
+{
+  "name": "test-task",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.js",
+  "scripts": {
+    "test": "runtest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timchneko/test-task.git"
+  },
+  "author": "R",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/timchneko/test-task/issues"
+  },
+  "homepage": "https://github.com/timchneko/test-task#readme",
+  "devDependencies": {
+    "bootstrap": "^3.3.7",
+    "grunt": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-less": "^1.4.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "jquery-validation": "^1.15.1"
+  }
+}
