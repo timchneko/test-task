@@ -1,0 +1,36 @@
+body {
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.review {
+    border-bottom: 1px dotted #ccc;
+    &:first-of-type {
+        margin-top: 20px;
+    }
+}
+
+.comment {
+	padding-right: 3px;
+	padding-left: 3px;
+}
+
+.image-float {
+	width: 320px;
+	max-height: 240px;
+	@media screen and (min-width: 768px) {
+        float: left;
+        margin: 10px;
+    }
+}
+
+.image-center {
+	margin: auto;
+	display: block;
+    max-width: 320px;
+    max-height: 240px;
+}
+
+textarea {
+    resize: vertical;
+}
