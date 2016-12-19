@@ -57,7 +57,7 @@
 		</div>
         <div class="container">
             <div class="row">
-				<a href="?admin=1">Войти</a>
+				<?= $this->isAdmin ? '<a href="#" class="quit">Выйти</a>' : '<a href="?admin=1">Войти</a>' ?>
                 <section id="comments" itemscope itemtype="http://schema.org/Organization">
                     <meta itemprop="name" content="Монастырёв"/>
 					<h1 class="text-center">Отзывы</h1>

@@ -1,4 +1,11 @@
 ;(function() {
+	var setCookie = function(cname, cvalue, exdays) {
+	    var d = new Date();
+	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	    var expires = "expires="+d.toUTCString();
+	    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+	}
+	
 	$('document').ready(function() {
 		// post editing
 		$('.review').not('#revPreview').each(function() {
@@ -69,6 +76,11 @@
 			}
 			// confirm review
 			review.find('.confirm').click(confirm);
+		});
+		$('.quit').click(function(event) {
+			event.preventDefault();
+			setCookie('hash', '', -1);
+			window.location = '/';
 		});
 	});
 })()
