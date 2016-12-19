@@ -94,7 +94,7 @@
 											: $('#emailPreview').attr('href', 'mailto:' + this.value);
 				});
 				if (image.state == 2) {
-					window.img = image.resize();
+					image.resize();
 					$('#imagePreview').attr('src', image.toDataURL());
 					$('#imagePreviewDiv').show();
 				} else {
@@ -110,13 +110,12 @@
 			if (valid) {
 				var request = {submit: 1};
 				if (image.state == 2) {
-					window.img = image.resize();
+					image.resize();
 					request.image = image.toDataURL();
 				}
 				$('.form-control').each(function() { request[this.name] = this.value });
 				$.post('index.php', request, function(data, status) {
 					if (!data || status != "success") return;
-					$('.comments').empty().prepend(data);
 					$('.alert-success').addClass('in');
 					setTimeout(function() { $('.alert-success').removeClass('in') }, 2000);
 				});

@@ -31,6 +31,11 @@
 				$('.form-control').each(function() { request[this.name] = this.value });
 				$.post('index.php', request, function(data, status) {
 					if (!data || status != "success") return;
+					if (+data == 0) {
+						$('.alert-danger').addClass('in');
+						setTimeout(function() { $('.alert-danger').removeClass('in') }, 5000);
+						return;
+					}
 					setCookie('username', $('#inputUsername').val(), 1);
 					setCookie('hash', data, 1);
 					window.location = '/';

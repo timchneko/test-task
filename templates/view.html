@@ -11,7 +11,7 @@
     	<script src="js/jquery.validate.min.js"></script>
     	<script src="js/modal.min.js"></script>
     	<script src="js/dropdown.min.js"></script>
-		<script src="js/production.min.js"></script>
+		<script src="js/scripts.min.js"></script>
 		<?= $this->isAdmin ? '<script src="js/confirm.min.js"></script>' : '' ?>
 	</head>
 	<body>
@@ -145,17 +145,17 @@
                         </div>
                         <div class="form-group clearfix hidden-md hidden-lg">
                             <label class="btn btn-info btn-file btn-block pull-right">
-                                Загрузить изображение<input type="file" class="file-input hidden">
+                                Загрузить изображение<input type="file" class="file-input hidden" accept="image/png,image/gif,image/jpeg">
                             </label>
                         </div>
                         <div class="form-group hidden-md hidden-lg">
                             <button type="button" class="btn btn-primary btn-block preview">Предварительный просмотр</button>
                             <button type="submit" class="btn btn-success btn-block pull-right">Отправить</button>
                         </div>
-                        <div class="alert alert-success fade text-center">
-						  <strong>Сообщение отправлено!</strong>
-						</div>
                     </form>
+                    <div class="alert alert-success fade text-center">
+					  <strong>Сообщение отправлено!</strong>
+					</div>
                 </div>
 				<?php } ?>
         	</div>

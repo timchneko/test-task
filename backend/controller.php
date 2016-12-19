@@ -55,19 +55,19 @@
 					list($type, $data) 	= explode(';', $imageData);
 					list(, $data)		= explode(',', $data);
 					list(, $filetype) 	= explode('/', $type);
-					$data = base64_decode($data);
-					$imagePath = 'pics/' . time() . rand() . $filetype;
-					file_put_contents($imagePath, $data);
-					$model->setImagePath($imagePath);
+					if (in_array($filetype, array("png", "jpeg", "gif"))) {
+						$data = base64_decode($data);
+						$imagePath = 'pics/' . time() . rand() . $filetype;
+						file_put_contents($imagePath, $data);
+						$model->setImagePath($imagePath);
+					}
 				}
 				$model->save();
 			} catch (Exception $ex) {
 				echo $ex->getMessage();
 				return;
 			}
-			$posts = $this->getEntries();
-			$view = new View();
-			echo $view->getComments($posts, $this->postOnPageCount);
+			echo 1;
 		}
 
 		function getLoginPage() {
@@ -115,7 +115,6 @@
 				$model->setIsChanged(1);
 				$model->save();
 				echo $model->getText();
-
 			} catch (Exception $ex) {}
 			return;
 		}
